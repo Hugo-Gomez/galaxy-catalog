@@ -14,7 +14,7 @@ Gomez Hugo et Schuck Vincent
 
 ### Contenu
 - Référencement de chaque objet extragalactique
-- Informations basiques de l'objet (nom Scientifique / nom courant / type d'objet / spacialisation / images)
+- Informations basiques de l'objet (nom Scientifique / nom courant / type d'objet / spatialisation / images)
 - Contenu explicatif sur l'objet (si disponible)
 - Classification des objets
 - Lien entre les objets
@@ -38,14 +38,11 @@ Gomez Hugo et Schuck Vincent
 - Moteur de recherche avancé
 - Système d'exportation de donnée avancé
 - Système de classification en fonction de multiples critères
-- Avoir à côté de ces outils un espace consacré à la découverte d'information pour les gens qui s'y intérèssent
+- Avoir à côté de ces outils un espace consacré à la découverte d'information pour les gens qui s'y intéressent
 
 ## Technologies pressenties pour réaliser le projet
 
-- Python
-    - Flask (Pour l'API)
-    - Jinja (Pour la vue si on doit vraiment utiliser uniquement du python) + HTML5 / CSS3
-- VueJS (Si on peut utiliser autre chose pour la vue) + HTML5 / CSS3
-- MongoDB (pour le stockage d'information car très majoritèrement textuel)
-- JSON / CSS pour l'export de données
-- Docker pour structurer le projet
+- Flask (pour l'API)
+- MongoDB (pour le stockage d'information car très majoritairement textuel)
+- JSON / CSV pour l'export de données
+- Docker (éventuellement) pour déploiement
