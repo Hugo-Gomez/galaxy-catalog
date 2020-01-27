@@ -6,7 +6,7 @@ Gomez Hugo et Schuck Vincent
 ## Données de notre catalogue
 ### Sources
 - Catalogue Messier
-- Catalogue Abel
+- Catalogue Abell
 - Atlas ARP
 - Catalogue MGC
 - Catalogue PGC
