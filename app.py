@@ -6,12 +6,17 @@ from waitress import serve
 from flask_cors import CORS, cross_origin
 import traceback
 
-from utils.JESUISCOLERE import multiple_dab
+from sqlalchemy import create_engine
+
+from utils.requetes import *
 
 #APP CONFIG
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+#connecteur sqlite
+engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
 
 #ROUTES
 
@@ -19,15 +24,14 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def hello_world():
    return 'Hello, World'
 
+cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
 
-cors_dab = CORS(app, resources={r"/dab": {"origins": "*"}})
-
-@app.route('/dab', methods=["GET"])
-@cross_origin(origin='*',headers=['Content- Type'])
-def dab():
+@app.route('/get_object_by_id', methods=["GET"])
+@cross_origin(origin='*', headers=['Content-Type'])
+def get_object_by_id():
     try:
-        nb_dab = request.args.get('nb_dab')
-        data = multiple_dab(nb_dab)
+        obj_id = request.args.get('id')
+        data = get_obj_by_id(obj_id)
         resp  = json.dumps(data)
         return resp
 
