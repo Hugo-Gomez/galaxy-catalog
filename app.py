@@ -1,6 +1,6 @@
 #IMPORTS
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 from waitress import serve
 from flask_cors import CORS, cross_origin
