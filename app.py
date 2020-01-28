@@ -24,6 +24,7 @@ engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
 def hello_world():
    return 'Hello, World'
 
+##GET OBJECT BY ID
 cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
 
 @app.route('/get_object_by_id', methods=["GET"])
@@ -38,6 +39,7 @@ def get_object_by_id():
     except Exception:
         return traceback.format_exc()
 
+##GET OBJECT BY CONSTELLATION
 cors_gobc = CORS(app, resources={r"/get_object_by_const": {"origins": "*"}})
 
 @app.route('/get_object_by_const', methods=["GET"])
@@ -52,6 +54,7 @@ def get_object_by_const():
     except Exception:
         return traceback.format_exc()
 
+##GET OBJECT BY DECOUVREUR
 cors_gobd = CORS(app, resources={r"/get_object_by_dec": {"origins": "*"}})
 
 @app.route('/get_object_by_dec', methods=["GET"])
