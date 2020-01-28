@@ -59,7 +59,7 @@ cors_gobd = CORS(app, resources={r"/get_object_by_dec": {"origins": "*"}})
 def get_object_by_dec():
     try:
         dec = request.args.get('dec')
-        data = get_obj_by_sadecdecdec(dec)
+        data = get_obj_by_dec(dec)
         resp  = jsonify(data)
         return resp
 

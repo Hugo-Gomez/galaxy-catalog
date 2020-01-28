@@ -20,7 +20,7 @@ def get_obj_by_const(const) :
 
     return a
 
-def get_obj_by_sadecdecdec(dec) :
+def get_obj_by_dec(dec) :
     data = engine.execute(f'SELECT * FROM messier_catalog WHERE decouvreur = "{dec}";')
     d, a = {}, []
     for rowproxy in data:
