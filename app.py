@@ -1,76 +1,79 @@
-#IMPORTS
+## IMPORTS ##
 
+# App
 from flask import Flask, request, jsonify
 import json
 from waitress import serve
 from flask_cors import CORS, cross_origin
 import traceback
-
+# Database
 from sqlalchemy import create_engine
+# Utilitaries
+from utils.requests import *
 
-from utils.requetes import *
-
-#APP CONFIG
-
+# App configuration
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-#connecteur sqlite
+# sqlite connector
 engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
 
-#ROUTES
+# Generic method to collect object
+def get_object(catalog_name, attr, attr_value):
+    try:
+        data = get_obj_by_attr(catalog_name, attr, attr_value)
+        resp  = jsonify(data)
+        return resp
+    except Exception:
+        return "<div>Invalid Request, find help at <a href='#'>this page</a>.</div>"
 
+## ROUTES ##
+
+# Attributes that can be used as filter
+# Format = filter_name : column_name
+attr_for_filtering = {
+    "constellation": "const",
+    "discoverer": "decouvreur",
+    "year": "annee",
+    "distance": "distance",
+    "english_name": "english_name_nom_en_anglais",
+    "french_name": "french_name_nom_francais",
+    "latin_name": "latin_name_nom_latin",
+    "ra": "ra"
+}
+
+# root
+# TODO : Static page to present the different routes that can be used
 @app.route('/')
 def hello_world():
    return 'Hello, World'
 
-##GET OBJECT BY ID
-cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
+# TODO : investigate CORS
+# cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
 
-@app.route('/get_object_by_id', methods=["GET"])
+# Get object by catalog and by Messier ID
+@app.route('/<catalog_name>/object/<obj_id>/', methods=["GET"])
 @cross_origin(origin='*', headers=['Content-Type'])
-def get_object_by_id():
-    try:
-        obj_id = request.args.get('id')
-        data = get_obj_by_id(obj_id)
-        resp  = jsonify(data)
-        return resp
+def get_object_by_id(catalog_name, obj_id):
+    return get_object(catalog_name, "messier", obj_id)
 
-    except Exception:
-        return traceback.format_exc()
+# TODO : Get object by catalog and by NGC ID
 
-##GET OBJECT BY CONSTELLATION
-cors_gobc = CORS(app, resources={r"/get_object_by_const": {"origins": "*"}})
-
-@app.route('/get_object_by_const', methods=["GET"])
+# Get objects by filtering
+@app.route('/<catalog_name>/objects', methods=["GET"])
 @cross_origin(origin='*', headers=['Content-Type'])
-def get_object_by_const():
-    try:
-        const = request.args.get('const')
-        data = get_obj_by_const(const)
-        resp  = jsonify(data)
-        return resp
+def get_objects_by_filtering(catalog_name):
+    args = request.args
+    attr, attr_value = None, None
+    if len(args) == 1 and next(iter(args)) in attr_for_filtering.keys():
+        attr = attr_for_filtering[next(iter(args))]
+        attr_value = args[next(iter(args))]
+    return get_object(catalog_name, attr, attr_value)
 
-    except Exception:
-        return traceback.format_exc()
-
-##GET OBJECT BY DECOUVREUR
-cors_gobd = CORS(app, resources={r"/get_object_by_dec": {"origins": "*"}})
-
-@app.route('/get_object_by_dec', methods=["GET"])
-@cross_origin(origin='*', headers=['Content-Type'])
-def get_object_by_dec():
-    try:
-        dec = request.args.get('dec')
-        data = get_obj_by_dec(dec)
-        resp  = jsonify(data)
-        return resp
-
-    except Exception:
-        return traceback.format_exc()
-
-#APP
-
+## APP ##
 if __name__ == "__main__":
-   # app.run(debug=True) ##Replaced with below code to run it using waitress
-   serve(app, host='0.0.0.0', port=2727)
+    # Development
+    app.run(debug=True)
+
+    # Production
+    # serve(app, host='0.0.0.0', port=2727)
