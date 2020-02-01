@@ -1,7 +1,7 @@
 ## IMPORTS ##
 
 # App
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 import json
 from waitress import serve
 from flask_cors import CORS, cross_origin
@@ -18,15 +18,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # sqlite connector
 engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
 
-# Generic method to collect object
-def get_object(catalog_name, attr, attr_value):
-    try:
-        data = get_obj_by_attr(catalog_name, attr, attr_value)
-        resp  = jsonify(data)
-        return resp
-    except Exception:
-        return "<div>Invalid Request, find help at <a href='#'>this page</a>.</div>"
-
 ## ROUTES ##
 
 # Attributes that can be used as filter
@@ -42,11 +33,10 @@ attr_for_filtering = {
     "ra": "ra"
 }
 
-# root
-# TODO : Static page to present the different routes that can be used
+# guide page
 @app.route('/')
-def hello_world():
-   return 'Hello, World'
+def index():
+    return render_template('index.html', filters=attr_for_filtering)
 
 # TODO : investigate CORS
 # cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
@@ -56,8 +46,6 @@ def hello_world():
 @cross_origin(origin='*', headers=['Content-Type'])
 def get_object_by_id(catalog_name, obj_id):
     return get_object(catalog_name, "messier", obj_id)
-
-# TODO : Get object by catalog and by NGC ID
 
 # Get objects by filtering
 @app.route('/<catalog_name>/objects', methods=["GET"])
