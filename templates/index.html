@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Messier Catalog API</title>
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='styles/index.css') }}">
+</head>
+<body>
+    <div class="filter">
+        <div class="card">
+            <h1>Welcome to the Messier Catalog API !</h1>
+            <div class="card-content">
+                <h2>Getting started</h2>
+                <p class="usage">
+                    <u>Get an object by Messier ID :</u><br>
+                    <code>/messier/object/M77</code><br>
+                    <u>Get objects by filtering :</u><br>
+                    <code>/messier/objects?year=1780</code>
+                    <br>
+                    <b>Available filters : </b>
+                    <ul>
+                        {% for filter in filters %}
+                            <li>{{ filter }}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+                <h2>Authors</h2>
+                <p>Hugo Gomez & Vincent Schuck</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

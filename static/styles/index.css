@@ -1,0 +1,35 @@
+body {
+    background-image: url(../images/galaxy_wallpaper.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+}
+
+.filter {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 55vw;
+    height: fit-content;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.card .card-content {
+    text-align: start;
+    margin-left: 3vw;
+}
+
+.card .card-content .usage {
+    line-height: 30px;
+}
