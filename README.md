@@ -1,5 +1,8 @@
 # Catalogue des galaxies
 
+Le projet est déployé et en production à cette adresse :<br>
+https://hugomez.pythonanywhere.com/
+
 ## Description du projet
 
 API permettant d'acceder à des données scientifiques. Dans notre cas nous allons rendre accessible des données du catalogue Messier qui recense les objets extragalactiques.
