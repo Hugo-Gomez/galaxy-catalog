@@ -6,17 +6,12 @@ import json
 from waitress import serve
 from flask_cors import CORS, cross_origin
 import traceback
-# Database
-from sqlalchemy import create_engine
 # Utilitaries
 from utils.requests import *
 
 # App configuration
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-# sqlite connector
-engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
 
 ## ROUTES ##
 
@@ -59,9 +54,6 @@ def get_objects_by_filtering(catalog_name):
     return get_object(catalog_name, attr, attr_value)
 
 ## APP ##
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # Development
     # app.run(debug=True)
-
-    # Production
-    serve(app, host='0.0.0.0', port=80)
