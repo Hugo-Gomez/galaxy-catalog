@@ -61,7 +61,7 @@ def get_objects_by_filtering(catalog_name):
 ## APP ##
 if __name__ == "__main__":
     # Development
-    app.run(debug=True)
+    # app.run(debug=True)
 
     # Production
-    # serve(app, host='0.0.0.0', port=2727)
+    serve(app, host='0.0.0.0', port=80)
