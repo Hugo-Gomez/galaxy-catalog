@@ -3,7 +3,10 @@ from flask import jsonify, abort, Response
 from sqlalchemy import create_engine
 
 # sqlite connector
-engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
+# dev
+# engine = create_engine('sqlite:///db/galaxy-catalog.db', echo=False)
+# prod
+engine = create_engine('sqlite:////home/hugomez/galaxy-catalog/db/galaxy-catalog.db', echo=False)
 
 # Generic method to collect object
 def get_object(catalog_name, attr, attr_value):

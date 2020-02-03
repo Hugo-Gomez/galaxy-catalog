@@ -33,14 +33,11 @@ attr_for_filtering = {
 def index():
     return render_template('index.html', filters=attr_for_filtering)
 
-# TODO : investigate CORS
-# cors_gobi = CORS(app, resources={r"/get_object_by_id": {"origins": "*"}})
-
 # Get object by catalog and by Messier ID
 @app.route('/<catalog_name>/object/<obj_id>/', methods=["GET"])
 @cross_origin(origin='*', headers=['Content-Type'])
 def get_object_by_id(catalog_name, obj_id):
-    return get_object(catalog_name, "messier", obj_id)
+    return get_object(catalog_name, "messier", obj_id.capitalize())
 
 # Get objects by filtering
 @app.route('/<catalog_name>/objects', methods=["GET"])
@@ -54,6 +51,6 @@ def get_objects_by_filtering(catalog_name):
     return get_object(catalog_name, attr, attr_value)
 
 ## APP ##
-#if __name__ == "__main__":
+if __name__ == "__main__":
     # Development
-    # app.run(debug=True)
+    app.run(debug=True)
