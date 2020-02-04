@@ -47,7 +47,7 @@ def get_objects_by_filtering(catalog_name):
     if len(args) == 1 and next(iter(args)) in attr_for_filtering.keys():
         attr = attr_for_filtering[next(iter(args))]
         attr_value = args[next(iter(args))]
-    return get_object(catalog_name, attr, attr_value)
+    return get_object(catalog_name, attr, attr_value.capitalize())
 
 ## APP ##
 if __name__ == "__main__":
