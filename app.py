@@ -3,7 +3,6 @@
 # App
 from flask import Flask, request, render_template
 import json
-from waitress import serve
 from flask_cors import CORS, cross_origin
 import traceback
 # Utilitaries
