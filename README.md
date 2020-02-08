@@ -17,7 +17,7 @@ API permettant d'acceder à des données scientifiques. Dans notre cas nous allo
 <code>git clone https://github.com/Hugo-Gomez/galaxy-catalog.git</code>
 
 **Installer les dépendances :**<br>
-<code>pip install -r requirements.txt</code>
+<code>pip3 install -r requirements.txt</code>
 
 **Lancer l'application :**<br>
 <code>python3 app.py</code>
