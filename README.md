@@ -30,6 +30,9 @@ API permettant d'acceder à des données scientifiques. Dans notre cas nous allo
 **Get objects by filtering :**<br>
 <code>/messier/objects?year=1780</code>
 
+**Multi-Filtering is available :**<br>
+<code>/messier/objects?year=1780&distance=8200</code>
+
 **Available filters :**
 - constellation
 - discoverer
