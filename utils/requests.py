@@ -9,10 +9,10 @@ from sqlalchemy import create_engine
 engine = create_engine('sqlite:////home/hugomez/galaxy-catalog/db/galaxy-catalog.db', echo=False)
 
 # Generic method to collect object
-def get_object(catalog_name, attr, attr_value):
+def get_object(catalog_name, filter_dict):
     resp = []
     try:
-        data = get_obj_by_attr(catalog_name, attr, attr_value)
+        data = get_obj_by_filtering(catalog_name, filter_dict)
         resp  = jsonify(data)
     except Exception:
         return Response(
@@ -24,8 +24,15 @@ def get_object(catalog_name, attr, attr_value):
         return resp
 
 # Get object by attribute
-def get_obj_by_attr(catalog_name, attr, attr_value):
-    data = engine.execute(f'SELECT * FROM {catalog_name}_catalog WHERE {attr} = "{attr_value}";')
+def get_obj_by_filtering(catalog_name, filter_dict):
+    sql_req = f'SELECT * FROM {catalog_name}_catalog WHERE '
+    for filter_item in filter_dict.items():
+        if filter_item[0] == list(filter_dict.keys())[-1]:
+            sql_req += f'{filter_item[0]} = "{filter_item[1]}";'
+        else:
+            sql_req += f'{filter_item[0]} = "{filter_item[1]}" AND '
+    print(sql_req)
+    data = engine.execute(sql_req)
     d, a = {}, []
     for rowproxy in data:
         for column, value in rowproxy.items():

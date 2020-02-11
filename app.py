@@ -43,11 +43,11 @@ def get_object_by_id(catalog_name, obj_id):
 @cross_origin(origin='*', headers=['Content-Type'])
 def get_objects_by_filtering(catalog_name):
     args = request.args
-    attr, attr_value = None, None
-    if len(args) == 1 and next(iter(args)) in attr_for_filtering.keys():
-        attr = attr_for_filtering[next(iter(args))]
-        attr_value = args[next(iter(args))]
-    return get_object(catalog_name, attr, attr_value.capitalize())
+    filter_dict = {}
+    for arg in args.items():
+        filter_dict[attr_for_filtering[arg[0]]] = arg[1].capitalize()
+    print(filter_dict)
+    return get_object(catalog_name, filter_dict)
 
 ## APP ##
 if __name__ == "__main__":
