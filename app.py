@@ -46,7 +46,6 @@ def get_objects_by_filtering(catalog_name):
     filter_dict = {}
     for arg in args.items():
         filter_dict[attr_for_filtering[arg[0]]] = arg[1].capitalize()
-    print(filter_dict)
     return get_object(catalog_name, filter_dict)
 
 ## APP ##

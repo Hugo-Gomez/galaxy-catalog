@@ -26,12 +26,11 @@ def get_object(catalog_name, filter_dict):
 # Get object by attribute
 def get_obj_by_filtering(catalog_name, filter_dict):
     sql_req = f'SELECT * FROM {catalog_name}_catalog WHERE '
-    for filter_item in filter_dict.items():
-        if filter_item[0] == list(filter_dict.keys())[-1]:
-            sql_req += f'{filter_item[0]} = "{filter_item[1]}";'
+    for filter_key, filter_val in filter_dict.items():
+        if filter_key == list(filter_dict.keys())[-1]:
+            sql_req += f'{filter_key} = "{filter_val}";'
         else:
-            sql_req += f'{filter_item[0]} = "{filter_item[1]}" AND '
-    print(sql_req)
+            sql_req += f'{filter_key} = "{filter_val}" AND '
     data = engine.execute(sql_req)
     d, a = {}, []
     for rowproxy in data:
